@@ -52,6 +52,9 @@ jobs:
             using NodeJS; run(`$(npm_cmd()) install highlight.js`);
             using Franklin;
             Pkg.activate("."); Pkg.instantiate();
+	    Pkg.add("IterativeSolvers");
+	    Pkg.add("PolynomialBases");
+	    Pkg.add("Polynomials");
             optimize()'
     - name: Build and Deploy
       uses: JamesIves/github-pages-deploy-action@releases/v3
