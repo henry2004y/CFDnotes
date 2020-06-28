@@ -73,7 +73,7 @@ outputs
 To evaluate the value of Lagrange basis function on [-1,1]:
 
 ```julia:./lagrange.jl
-'Computes values of pth Lagrange basis function at x between [-1,1].'
+"Computes values of pth Lagrange basis function at x between [-1,1]."
 function lagrange(p::Integer, x)
 
    @assert p ≥ 0
