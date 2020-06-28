@@ -1,4 +1,6 @@
 @def title = "Julia Code For AE623"
+@def mintoclevel=2
+@def maxtoclevel=3
 
 # CFD Practice In Julia
 
