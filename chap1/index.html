@@ -7,15 +7,11 @@ A = rand(<span class=hljs-number >3</span>,<span class=hljs-number >3</span>)
 A = A&#x27;*A
 b = rand(<span class=hljs-number >3</span>)
 x = gmres(A,b)
-println(x)</code></pre> <p>gives</p> <pre><code class="plaintext hljs">ArgumentError: Package IterativeSolvers not found in current path:
-- Run `import Pkg; Pkg.add(&quot;IterativeSolvers&quot;)` to install the IterativeSolvers package.
-
+println(x)</code></pre> <p>gives</p> <pre><code class="plaintext hljs">[0.5989614206421134, -1.1483400212618047, 0.7129051582083639]
 </code></pre> <h1 id=numerical_integration ><a href="#numerical_integration">Numerical Integration</a></h1> <h2 id=basic_polynomials ><a href="#basic_polynomials">Basic polynomials</a></h2> <p><a href="https://github.com/JuliaMath/Polynomials.jl">Polynomials.jl</a> provides basic arithmetic, integration, differentiation, evaluation, and root finding over dense univariate polynomials.</p> <p><a href="https://github.com/jverzani/SpecialPolynomials.jl">SpecialPolynomials.jl</a> provides many more classic orthogonal polynomials, the Lagrange and Newton interpolating polynomials, and the Bernstein polynomials.</p> <h2 id=legendre_polynomials ><a href="#legendre_polynomials">Legendre polynomials</a></h2> <p>There are packages like <a href="https://github.com/ranocha/PolynomialBases.jl">PolynomialBases.jl</a>.</p> <p>For example, to evaluate the <code>p</code> order Legendre polynomial at <code>x</code>,</p> <pre><code class="julia hljs"><span class=hljs-keyword >using</span> PolynomialBases
 x = <span class=hljs-number >0.0</span>
 p = <span class=hljs-number >1</span>
-<span class=hljs-meta >@show</span> legendre(x,p)</code></pre> <p>outputs</p> <pre><code class="plaintext hljs">ArgumentError: Package PolynomialBases not found in current path:
-- Run `import Pkg; Pkg.add(&quot;PolynomialBases&quot;)` to install the PolynomialBases package.
-
+<span class=hljs-meta >@show</span> legendre(x,p)</code></pre> <p>outputs</p> <pre><code class="plaintext hljs">legendre(x, p) = 0.0
 </code></pre> <h2 id=lagrange_polynomials ><a href="#lagrange_polynomials">Lagrange polynomials</a></h2> <p>To evaluate the value of Lagrange basis function on &#91;-1,1&#93;:</p> <pre><code class="julia hljs"><span class=hljs-string >&quot;Computes values of pth Lagrange basis function at x between [-1,1].&quot;</span>
 <span class=hljs-keyword >function</span> lagrange(p::<span class=hljs-built_in >Integer</span>, x)
 
@@ -63,7 +59,6 @@ p = <span class=hljs-number >1</span>
 <span class=hljs-keyword >end</span>
 
 <span class=hljs-meta >@show</span> lagrangeBasis(<span class=hljs-number >1</span>)
-<span class=hljs-meta >@show</span> lagrangeBasis(<span class=hljs-number >1</span>)[<span class=hljs-number >1</span>](<span class=hljs-number >1.0</span>) <span class=hljs-comment ># evaluate the first basis at 1.0</span></code></pre> <p>outputs</p> <pre><code class="plaintext hljs">ArgumentError: Package Polynomials not found in current path:
-- Run `import Pkg; Pkg.add(&quot;Polynomials&quot;)` to install the Polynomials package.
-
+<span class=hljs-meta >@show</span> lagrangeBasis(<span class=hljs-number >1</span>)[<span class=hljs-number >1</span>](<span class=hljs-number >1.0</span>) <span class=hljs-comment ># evaluate the first basis at 1.0</span></code></pre> <p>outputs</p> <pre><code class="plaintext hljs">lagrangeBasis(1) = Polynomials.Polynomial{Float64}[Polynomials.Polynomial(0.5 - 0.5*x), Polynomials.Polynomial(0.5 + 0.5*x)]
+((lagrangeBasis(1))[1])(1.0) = 0.0
 </code></pre> <h2 id=barycentric_polynomials ><a href="#barycentric_polynomials">Barycentric polynomials</a></h2> <p>Another version of Lagrange polynomials, but more stable. One implementation can be found at <a href="https://github.com/dawbarton/BarycentricInterpolation.jl">BarycentricInterpolation.jl</a></p> <h1 id=time_marching ><a href="#time_marching">Time Marching</a></h1> <p>Many functionalities, especially for ODEs, can be found at <a href="https://docs.sciml.ai/stable/">DifferentialEquations.jl</a>.</p> <h1 id=splines ><a href="#splines">Splines</a></h1> <p>中文对应样条插值。There are package like <a href="https://github.com/kbarbary/Dierckx.jl">Dierckx.jl</a>, <a href="https://github.com/JuliaMath/Interpolations.jl">Interpolations.jl</a>, and <a href="https://github.com/sisl/GridInterpolations.jl">GridInterpolations.jl</a> for this purpose.</p> <h1 id=discretization_approaches ><a href="#discretization_approaches">Discretization Approaches</a></h1><div class=page-foot > <div class=copyright > &copy; Hongyang Zhou. Last modified: June 28, 2020. Website built with <a href="https://github.com/tlienart/Franklin.jl">Franklin.jl</a>. </div> </div> </div> </div> </div> <script src="/CFD_Practice/libs/pure/ui.min.js"></script>

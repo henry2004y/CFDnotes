@@ -1,3 +1,2 @@
-ArgumentError: Package Polynomials not found in current path:
-- Run `import Pkg; Pkg.add("Polynomials")` to install the Polynomials package.
-
+lagrangeBasis(1) = Polynomials.Polynomial{Float64}[Polynomials.Polynomial(0.5 - 0.5*x), Polynomials.Polynomial(0.5 + 0.5*x)]
+((lagrangeBasis(1))[1])(1.0) = 0.0
