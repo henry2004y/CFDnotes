@@ -1,5 +1,5 @@
 # This file was generated, do not modify it. # hide
-'Computes values of pth Lagrange basis function at x between [-1,1].'
+"Computes values of pth Lagrange basis function at x between [-1,1]."
 function lagrange(p::Integer, x)
 
    @assert p ≥ 0

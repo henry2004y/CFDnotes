@@ -1,0 +1,69 @@
+<!doctype html> <html lang=en > <meta charset=UTF-8 > <meta name=viewport  content="width=device-width, initial-scale=1"> <link rel=stylesheet  href="/CFD_Practice/libs/highlight/github.min.css"> <link rel=stylesheet  href="/CFD_Practice/css/franklin.css"> <link rel=stylesheet  href="/CFD_Practice/css/pure.css"> <link rel=stylesheet  href="/CFD_Practice/css/side-menu.css"> <style> .franklin-content{padding-left:10%;} @media (min-width: 940px) { .franklin-content {width: 640px; margin-left: 0px; padding-left: 80px;} .header {width: 700px;} } </style> <link rel=icon  href="/CFD_Practice/assets/favicon.png"> <title>Introduction</title> <div id=layout > <a href="#menu" id=menuLink  class=menu-link ><span></span></a> <div id=menu > <div class=pure-menu > <a class=pure-menu-heading  href="#">Pure-SM</a> <ul class=pure-menu-list > <li class="pure-menu-item "><a href="/CFD_Practice/" class=pure-menu-link >Home</a> <li class="pure-menu-item pure-menu-selected"><a href="/CFD_Practice/chap1/" class=pure-menu-link >Introduction</a> <li class="pure-menu-item "><a href="/CFD_Practice/chap2/" class=pure-menu-link >Mesh Generation</a> <li class="pure-menu-item "><a href="/CFD_Practice/chap4/" class=pure-menu-link >DG</a> <li class="pure-menu-item "><a href="/CFD_Practice/menu1/" class=pure-menu-link >Code blocks</a> <li class="pure-menu-item "><a href="/CFD_Practice/menu2/" class=pure-menu-link >More goodies</a> <li class="pure-menu-item "><a href="/CFD_Practice/menu3/" class=pure-menu-link >Tags</a> </ul> </div> </div> <div id=main > <div class=header > <h1>Introduction</h1> <h2>Umich AE623</h2> </div> <div class=franklin-content ><div class=franklin-toc ><ol><li><a href="#plu_factorization">PLU factorization</a><li><a href="#iterative_smoothers">Iterative smoothers</a><li><a href="#krylov_subspace_methods">Krylov subspace methods</a><li><a href="#basic_polynomials">Basic polynomials</a><li><a href="#legendre_polynomials">Legendre polynomials</a><li><a href="#lagrange_polynomials">Lagrange polynomials</a><li><a href="#barycentric_polynomials">Barycentric polynomials</a></ol></div> <h1 id=linear_systems ><a href="#linear_systems">Linear Systems</a></h1> <h2 id=plu_factorization ><a href="#plu_factorization">PLU factorization</a></h2> <pre><code class="julia hljs"><span class=hljs-keyword >using</span> LinearAlgebra
+A = [<span class=hljs-number >4</span> <span class=hljs-number >5</span> <span class=hljs-number >8</span> <span class=hljs-number >9</span>; <span class=hljs-number >6</span> <span class=hljs-number >9</span> <span class=hljs-number >21</span> <span class=hljs-number >19</span>; <span class=hljs-number >2</span> <span class=hljs-number >1</span> <span class=hljs-number >3</span> <span class=hljs-number >4</span>; <span class=hljs-number >4</span> <span class=hljs-number >11</span> <span class=hljs-number >16</span> <span class=hljs-number >12</span>]
+F = lu(A)
+<span class=hljs-meta >@show</span> F</code></pre> <p>The output is</p> <pre><code class="plaintext hljs">F = LinearAlgebra.LU{Float64,Array{Float64,2}}([6.0 9.0 21.0 19.0; 0.6666666666666666 5.0 2.0 -0.6666666666666661; 0.6666666666666666 -0.2 -5.6 -3.799999999999999; 0.3333333333333333 -0.4 0.5714285714285715 -0.4285714285714288], [2, 4, 4, 4], 0)
+</code></pre> <h2 id=iterative_smoothers ><a href="#iterative_smoothers">Iterative smoothers</a></h2> <h2 id=krylov_subspace_methods ><a href="#krylov_subspace_methods">Krylov subspace methods</a></h2> <p>There is a package <a href="https://juliamath.github.io/IterativeSolvers.jl/dev/">IterativeSolvers.jl</a> that provides efficient iterative algorithms for solving large linear systems, eigenproblems, and singular value problems. Most of the methods can be used matrix-free.</p> <p>For example,</p> <pre><code class="julia hljs"><span class=hljs-keyword >using</span> IterativeSolvers
+A = rand(<span class=hljs-number >3</span>,<span class=hljs-number >3</span>)
+A = A&#x27;*A
+b = rand(<span class=hljs-number >3</span>)
+x = gmres(A,b)
+println(x)</code></pre> <p>gives</p> <pre><code class="plaintext hljs">ArgumentError: Package IterativeSolvers not found in current path:
+- Run `import Pkg; Pkg.add(&quot;IterativeSolvers&quot;)` to install the IterativeSolvers package.
+
+</code></pre> <h1 id=numerical_integration ><a href="#numerical_integration">Numerical Integration</a></h1> <h2 id=basic_polynomials ><a href="#basic_polynomials">Basic polynomials</a></h2> <p><a href="https://github.com/JuliaMath/Polynomials.jl">Polynomials.jl</a> provides basic arithmetic, integration, differentiation, evaluation, and root finding over dense univariate polynomials.</p> <p><a href="https://github.com/jverzani/SpecialPolynomials.jl">SpecialPolynomials.jl</a> provides many more classic orthogonal polynomials, the Lagrange and Newton interpolating polynomials, and the Bernstein polynomials.</p> <h2 id=legendre_polynomials ><a href="#legendre_polynomials">Legendre polynomials</a></h2> <p>There are packages like <a href="https://github.com/ranocha/PolynomialBases.jl">PolynomialBases.jl</a>.</p> <p>For example, to evaluate the <code>p</code> order Legendre polynomial at <code>x</code>,</p> <pre><code class="julia hljs"><span class=hljs-keyword >using</span> PolynomialBases
+x = <span class=hljs-number >0.0</span>
+p = <span class=hljs-number >1</span>
+<span class=hljs-meta >@show</span> legendre(x,p)</code></pre> <p>outputs</p> <pre><code class="plaintext hljs">ArgumentError: Package PolynomialBases not found in current path:
+- Run `import Pkg; Pkg.add(&quot;PolynomialBases&quot;)` to install the PolynomialBases package.
+
+</code></pre> <h2 id=lagrange_polynomials ><a href="#lagrange_polynomials">Lagrange polynomials</a></h2> <p>To evaluate the value of Lagrange basis function on &#91;-1,1&#93;:</p> <pre><code class="julia hljs"><span class=hljs-string >&quot;Computes values of pth Lagrange basis function at x between [-1,1].&quot;</span>
+<span class=hljs-keyword >function</span> lagrange(p::<span class=hljs-built_in >Integer</span>, x)
+
+   <span class=hljs-meta >@assert</span> p ≥ <span class=hljs-number >0</span>
+
+   n = p + <span class=hljs-number >1</span>
+   ϕ = ones(eltype(x),length(x),n)
+   <span class=hljs-keyword >if</span> n == <span class=hljs-number >1</span>
+      <span class=hljs-keyword >return</span> phi
+   <span class=hljs-keyword >end</span>
+
+   InterPts = range(-<span class=hljs-number >1</span>, <span class=hljs-number >1</span>, length=n)
+
+   <span class=hljs-keyword >for</span> i = <span class=hljs-number >1</span>:n
+      <span class=hljs-keyword >for</span> j = <span class=hljs-number >1</span>:n
+         <span class=hljs-keyword >if</span> j != i
+            ϕ[i] *= (x - InterPts[j]) / (InterPts[i] - InterPts[j])
+         <span class=hljs-keyword >end</span>
+      <span class=hljs-keyword >end</span>
+   <span class=hljs-keyword >end</span>
+   <span class=hljs-keyword >return</span> ϕ
+<span class=hljs-keyword >end</span>
+
+<span class=hljs-meta >@show</span> lagrange(<span class=hljs-number >1</span>, <span class=hljs-number >0.0</span>)</code></pre> <p>gives <pre><code class="plaintext hljs">lagrange(1, 0.0) = [0.5 0.5]
+</code></pre> <p>A even easier approach would be taking advantage of the <a href="https://github.com/JuliaMath/Polynomials.jl">Polynomials.jl</a> package and return the coefficients of the polynomials:</p> <pre><code class="julia hljs"><span class=hljs-keyword >using</span> Polynomials
+
+<span class=hljs-keyword >function</span> lagrangeBasis(p::<span class=hljs-built_in >Integer</span>)
+   <span class=hljs-meta >@assert</span> p ≥ <span class=hljs-number >0</span>
+
+   p == <span class=hljs-number >0</span> &amp;&amp; <span class=hljs-keyword >return</span> [one(Polynomial)]
+
+   roots = range(<span class=hljs-number >1</span>, -<span class=hljs-number >1</span>, length=p+<span class=hljs-number >1</span>)
+   ϕ = fill(one(Polynomial),p+<span class=hljs-number >1</span>)
+   ψ = <span class=hljs-built_in >Vector</span>{Polynomial}(undef,p+<span class=hljs-number >1</span>)
+   <span class=hljs-keyword >for</span> i = <span class=hljs-number >1</span>:p+<span class=hljs-number >1</span>
+      <span class=hljs-keyword >for</span> j = <span class=hljs-number >1</span>:p+<span class=hljs-number >1</span>
+         <span class=hljs-keyword >if</span> i != j
+            temp = -<span class=hljs-number >1.0</span> / (roots[i]-roots[j])
+            ψ[j] = Polynomial([roots[j]*temp, temp])
+            ϕ[i] *= ψ[j]
+         <span class=hljs-keyword >end</span>
+      <span class=hljs-keyword >end</span>
+   <span class=hljs-keyword >end</span>
+   <span class=hljs-keyword >return</span> ϕ
+<span class=hljs-keyword >end</span>
+
+<span class=hljs-meta >@show</span> lagrangeBasis(<span class=hljs-number >1</span>)
+<span class=hljs-meta >@show</span> lagrangeBasis(<span class=hljs-number >1</span>)[<span class=hljs-number >1</span>](<span class=hljs-number >1.0</span>) <span class=hljs-comment ># evaluate the first basis at 1.0</span></code></pre> <p>outputs</p> <pre><code class="plaintext hljs">ArgumentError: Package Polynomials not found in current path:
+- Run `import Pkg; Pkg.add(&quot;Polynomials&quot;)` to install the Polynomials package.
+
+</code></pre> <h2 id=barycentric_polynomials ><a href="#barycentric_polynomials">Barycentric polynomials</a></h2> <p>Another version of Lagrange polynomials, but more stable. One implementation can be found at <a href="https://github.com/dawbarton/BarycentricInterpolation.jl">BarycentricInterpolation.jl</a></p> <h1 id=time_marching ><a href="#time_marching">Time Marching</a></h1> <p>Many functionalities, especially for ODEs, can be found at <a href="https://docs.sciml.ai/stable/">DifferentialEquations.jl</a>.</p> <h1 id=splines ><a href="#splines">Splines</a></h1> <p>中文对应样条插值。There are package like <a href="https://github.com/kbarbary/Dierckx.jl">Dierckx.jl</a>, <a href="https://github.com/JuliaMath/Interpolations.jl">Interpolations.jl</a>, and <a href="https://github.com/sisl/GridInterpolations.jl">GridInterpolations.jl</a> for this purpose.</p> <h1 id=discretization_approaches ><a href="#discretization_approaches">Discretization Approaches</a></h1><div class=page-foot > <div class=copyright > &copy; Hongyang Zhou. Last modified: June 28, 2020. Website built with <a href="https://github.com/tlienart/Franklin.jl">Franklin.jl</a>. </div> </div> </div> </div> </div> <script src="/CFD_Practice/libs/pure/ui.min.js"></script>
