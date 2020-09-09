@@ -4,8 +4,8 @@ website.
 The website_* must be defined for the RSS to work
 -->
 @def prepath = "CFD_Practice"
-@def website_title = "CFD Practice In Julia"
-@def website_descr = "Walkthrough of AE623 notes with Julia codes"
+@def website_title = "CFD in Practice"
+@def website_descr = "Walkthrough of fluid simulations"
 @def website_url   = "https://henry2004y.github.io/CFD_Practice/"
 
 @def author = "Hongyang Zhou"

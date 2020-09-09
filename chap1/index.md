@@ -146,6 +146,11 @@ One implementation can be found at [BarycentricInterpolation.jl](https://github.
 
 Many functionalities, especially for ODEs, can be found at [DifferentialEquations.jl](https://docs.sciml.ai/stable/).
 
+## CFL Condition
+
+Each point of a numerical solution also has a domain of dependence: again, the set of locations in the initial conditions that have an effect on the value of the solution at that point.
+It should be intuitively obvious that the numerical domain of dependence, at least in the limit, must contain the true domain of dependence if we want to get the correct answer. This is, in fact, the CFL condition: convergence is only possible in general if, in the limit as $\Delta x \rightarrow 0$ and $\Delta t \rightarrow 0$, the numerical domain of dependence for each point contains the true domain of dependence.
+
 # Splines
 
 中文对应样条插值。There are package like [Dierckx.jl](https://github.com/kbarbary/Dierckx.jl), [Interpolations.jl](https://github.com/JuliaMath/Interpolations.jl), and [GridInterpolations.jl](https://github.com/sisl/GridInterpolations.jl) for this purpose.
