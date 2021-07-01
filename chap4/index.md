@@ -30,7 +30,7 @@ For the first time, it took me a month to get working version with Fortran. I ge
 The profiling results are summarized [here](https://github.com/henry2004y/CFD/issues/1).
 
 I do not finish everything in the project:
-* least square projection for initialization is there, but never being tested. However, it is more important to understand why this works and how it works. This leads to the question of how to evaluate the accuracy of finite element solutions. Instead of being more accurate on a certain bunch of points, we may want to be more accurate on the whole domain instead. The least square projection follows the idea that if I generate the solution by minimizing the L2 norm error, then it should provide more accurate solution later on when evaluating the L2 norm error.
+* least square projection for initialization is there, but never being tested. However, it is more important to understand why this works and how it works. This leads to the question of how to evaluate the accuracy of finite element solutions. Instead of being more accurate on a certain bunch of points, we may want to be more accurate on the whole domain instead. The least square projection follows the idea that if I generate the solution by minimizing the L2 norm error, then it should provide more accurate solution later on when evaluating the L2 norm error. Fidkowski had some nice comments in the FE section of his AE423 notes.
 * Plotting is quite inaccurate in the Julia implementation because for simplicity I only have one averaged value per element. Unlike in Matlab we have this `fill/patch` method which can draw per element so we can clearly observe the discontinuities, in Matplotlib we only have `tricontour` or `tripcolor`. `tricontour` only accepts nodal values; `tripcolor` can accept either cell values or node values. The simplest way to get a relatively accurate plot is probably averge the solution on each node and use gradient fill for the elements. It would be even better if I can find a way to plot element-by-element.
 
 ## Libraries
@@ -68,7 +68,7 @@ Usually you don't need to worry too much about the temporary scalar allocation w
 
 ## More Things to Try
 
-* The code I have now is based on unstructured triangular mesh. It should be pretty easy to convert that to a structured rectangular mesh, with a different set of basis functions described in the note.
+* The code I have now is based on unstructured triangular mesh. It should be pretty easy to convert that to a structured rectangular mesh, with a natural extension of tensor products from 1D.
 
 * Curved boundary: not so interesting me at the moment because I am not doing high fidelity boundary layer simulations, but may be important if I have a chance to work on that in the future.
 
