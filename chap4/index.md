@@ -30,10 +30,10 @@ For the first time, it took me a month to get working version with Fortran. I ge
 The profiling results are summarized [here](https://github.com/henry2004y/CFD/issues/1).
 
 I do not finish everything in the project:
-* least square projection for initialization is there, but never being tested.
-* plotting is quite inaccurate because for simplicity I only have one averaged value per element. Unlike in Matlab we have this `fill/patch` method which can draw per element so we can clearly observe the discontinuities, in Matplotlib we only have `tricontour` or `tripcolor`. `tricontour` only accepts nodal values; `tripcolor` can accept either cell values or node values. The simplest way to get a relatively accurate plot is probably averge the solution on each node and use gradient fill for the elements. It would be even better if I can find a way to plot element-by-element.
+* least square projection for initialization is there, but never being tested. However, it is more important to understand why this works and how it works. This leads to the question of how to evaluate the accuracy of finite element solutions. Instead of being more accurate on a certain bunch of points, we may want to be more accurate on the whole domain instead. The least square projection follows the idea that if I generate the solution by minimizing the L2 norm error, then it should provide more accurate solution later on when evaluating the L2 norm error.
+* Plotting is quite inaccurate in the Julia implementation because for simplicity I only have one averaged value per element. Unlike in Matlab we have this `fill/patch` method which can draw per element so we can clearly observe the discontinuities, in Matplotlib we only have `tricontour` or `tripcolor`. `tricontour` only accepts nodal values; `tripcolor` can accept either cell values or node values. The simplest way to get a relatively accurate plot is probably averge the solution on each node and use gradient fill for the elements. It would be even better if I can find a way to plot element-by-element.
 
-# Libraries
+## Libraries
 
 [MultivariatePolynomials.jl](https://github.com/JuliaAlgebra/MultivariatePolynomials.jl): package for constructing Legendre basis functions. It is not very user-friendly.
 
@@ -41,7 +41,7 @@ I do not finish everything in the project:
 
 [FEMQuad.jl](https://github.com/JuliaFEM/FEMQuad.jl): numerical integration schemes for cartesian and tetrahedron domains. I use it for obtaining Gauss-Legendre integral points in triangles, i.e. Dunavant points.
 
-# Code Optimizations
+## Code Optimizations
 
 Even if some programming languages have libraries for polynomials and basis, it is generally not good to evaluate polynomials everytime when you do computations within the time steps. Remember the extremely slow version of 1D shallow-water DG solver implemented with symbolic functions in MATLAB? I tend to write that way the first time because it has a very similar form to the mathematical expression, but in practice, I should not do that.
 
@@ -63,3 +63,13 @@ Furthermore, for a system of equations with multiple variables, we can make eval
 ρ, ρux, ρuy, ρE = phi[:,q]' * coef_PVE[:,:,k]
 ```
 which is equivalent to evaluate each quantity separately, but 2x faster.
+
+Usually you don't need to worry too much about the temporary scalar allocation within loops; however, it is a good practice to check if you are not sure.
+
+## More Things to Try
+
+* The code I have now is based on unstructured triangular mesh. It should be pretty easy to convert that to a structured rectangular mesh, with a different set of basis functions described in the note.
+
+* Curved boundary: not so interesting me at the moment because I am not doing high fidelity boundary layer simulations, but may be important if I have a chance to work on that in the future.
+
+* Diffusion: DG has been practically proved to work well on advection problems, while CG is known to work well on diffusion problems. For fluid simulations, we are more interested in advection than diffusion, but we still need to include the diffusion terms. I need to be more familiar in this treatment.
