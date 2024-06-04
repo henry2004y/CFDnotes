@@ -1,3 +1,2 @@
-ArgumentError: Package Polynomials not found in current path:
+ArgumentError: Package Polynomials not found in current path.
 - Run `import Pkg; Pkg.add("Polynomials")` to install the Polynomials package.
-

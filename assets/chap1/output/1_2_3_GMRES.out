@@ -1,3 +1,2 @@
-ArgumentError: Package IterativeSolvers not found in current path:
+ArgumentError: Package IterativeSolvers not found in current path.
 - Run `import Pkg; Pkg.add("IterativeSolvers")` to install the IterativeSolvers package.
-

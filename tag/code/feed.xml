@@ -9,14 +9,14 @@
 
   <channel>
     <title>
-      <![CDATA[  {{fd2rss website_title}}  ]]>
+      <![CDATA[  CFD in Practice  ]]>
     </title>
-    <link> {{website_url}} </link>
+    <link> https://henry2004y.github.io/CFD_Practice/ </link>
     <description>
-      <![CDATA[  {{fd2rss website_description}}  ]]>
+      <![CDATA[  Walkthrough of fluid simulations  ]]>
     </description>
     <atom:link
-      href="{{fd_rss_feed_url}}"
+      href="https://henry2004y.github.io/CFD_Practice/feed.xml"
       rel="self"
       type="application/rss+xml" />
 
